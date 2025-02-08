@@ -1,14 +1,19 @@
 name: Build and Push Docker Image
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  # 手动触发工作流
+  workflow_dispatch:
+  # 当一个新版本发布（即发布状态变为 “已发布”）时，触发该工作流
+  release:
+    types: [published]
+  # 当有代码推送到 main 分支时触发工作流
+  #push:
+    #branches:
+     # - main
 
 env:
   REGISTRY: ${{ secrets.HUAWEI_REGISTRY_URL }}
-  IMAGE_NAME: docker-common/chatgpt-next-web  # 替换为你的组织/仓库名
+  IMAGE_NAME: myorg/chatgpt-next-web  # 替换为你的组织/仓库名
 
 jobs:
   build-and-push:
@@ -32,4 +37,3 @@ jobs:
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
-
