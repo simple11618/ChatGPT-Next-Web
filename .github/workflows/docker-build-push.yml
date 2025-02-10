@@ -4,12 +4,12 @@ on:
   # 手动触发工作流
   workflow_dispatch:
   # 当一个新版本发布（即发布状态变为 “已发布”）时，触发该工作流
-  release:
-    types: [published]
+#  release:
+#    ypes: [published]
   # 当有代码推送到 main 分支时触发工作流
-  #push:
-    #branches:
-     # - main
+  push:
+    branches:
+      - old
 
 env:
   REGISTRY: ${{ secrets.HUAWEI_REGISTRY_URL }}
